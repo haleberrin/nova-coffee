@@ -11,11 +11,21 @@ export default function QRMenu() {
   const sectionRef = useRef<HTMLElement>(null);
   const [qrCode, setQrCode] = useState("");
 
-  const menuUrl =
+  
+const [menuUrl, setMenuUrl] = useState("");
+
+useEffect(() => {
+  const url =
     process.env.NEXT_PUBLIC_MENU_URL ||
-    "http://localhost:3000/menu";
+    `${window.location.origin}/menu`;
+
+  setMenuUrl(url);
+}, []);
+
 
   useEffect(() => {
+
+    if (!menuUrl) return;
     QRCode.toDataURL(menuUrl, {
       width: 500,
       margin: 2,
